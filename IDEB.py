@@ -7,17 +7,18 @@ import math as ma
 from csv import writer
 #import numpy as np
 #********************************************************************************************************************
-#first i shall declare some universal variable values that are integral to thecalculation of dissipated energies etc.
+# first i shall declare some universal variable values that are integral to thecalculation of dissipated energies etc.
+# 首先，我将声明一些通用变量值，这些值是计算耗散能量等必不可少的。
 dummy=pow(10,-9)
-ETX=16.7*dummy#this is the energy dissipated on transmission of bit package
-ERX=36.1*dummy#this is the energy consumed at the time of recieving of the bit package
+ETX=16.7*dummy#this is the energy dissipated on transmission of bit package传输比特包时消散的能量
+ERX=36.1*dummy#this is the energy consumed at the time of recieving of the bit package接收比特包时消耗的能量
 EDA=5.0*dummy
-Emp=1.97*dummy#this is the energy cnsumed at the time of bit amplification
+Emp=1.97*dummy#this is the energy cnsumed at the time of bit amplification 比特放大时消耗的能量
 lamb=0.125
 c=299792458
 d0=0.1
 packets_to_CH=0
-r=8000#the total  number of transmission cycles or rounds
+r=8000#the total  number of transmission cycles or rounds 传输周期或回合总数
 node=8
 flag=0
 dead_node=0
@@ -37,6 +38,7 @@ class node:
          self.x=x
          self.y=y
 #now i shal define a function that updates the energy of each node after transmission is over in case the node is a a normal node
+#现在我将定义一个函数，该函数将在传输结束后更新每个节点的能量，如果该节点是正常节点
      def updating_in_case_normal(self):
         d=euclidean_distance(self,sinky)
         self.E=self.E-((ETX)*(4000) + Emp*3.38*4000*(ma.pow(d,3.38)))
@@ -62,7 +64,7 @@ def calcffE2(nody,sinky):
     if nody.E==0.5:
         ff=1/(distance*nody.E*nody.E)
     else:
-        de=0.5-nody.E #dissipated energy
+        de=0.5-nody.E #dissipated energy耗散的能量
         ff=1/(distance*de*de)
     return ff
 #now is shall create a function to calculate the forwarding function in case of IDEB protocol:
@@ -173,4 +175,5 @@ for r in range(0,8000):
     except:
         continue
     writable_contents=[r,total_residue,dead_node,packtosink]
+    # 轮数，剩余总能量，死亡节点，传输成功数
     appendrow(writable_contents)
